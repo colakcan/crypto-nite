@@ -10,16 +10,16 @@ class gdax_data_parser():
         for order in raw_data:
             processed = []
 
-            avg_price = round((order[4]+order[3])/2,4)
-            percent_change = round(1+((order[4]-order[3])/order[3]),4)
-            change_of_change = round(percent_change * previous_change, 4)
-            previous_change = change_of_change
+            avg_price = (order[4]+order[3])/2
+            percent_change = 1+((order[4]-order[3])/order[3])
+            change_of_change = percent_change * previous_change
+            previous_change = percent_change
 
             processed.append(order[0])
             processed.append(avg_price)
             processed.append(percent_change)
             processed.append(change_of_change)
-            processed.append(round(order[5],4))
+            processed.append(order[5])
 
             self.historic_data.append(processed)
             total_data = len(self.historic_data)
